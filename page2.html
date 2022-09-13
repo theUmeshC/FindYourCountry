@@ -24,8 +24,13 @@
       </div>
       <div class="search__country">
         <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-        <select name="" id="">
-          <option value="">Filter By Region</option>
+        <select name="" id="select__region">
+          <option value="Filter By Region">Filter By Region</option>
+          <option value="Africa">Africa</option>
+          <option value="Americas">Americas</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
         </select>
       </div>
     </div>
@@ -34,9 +39,14 @@
     
 
     <script>
-      let data = [];
+      
       let searchByCountry = document.querySelector("#search-by-country");
+
+      let byRegion = document.querySelector('#select__region')
+
+
       let resourses = `https://restcountries.com/v3.1/all`;
+
       document.addEventListener("DOMContentLoaded", retrieveData(resourses));
 
       async function findcountry() {
@@ -45,7 +55,7 @@
         return data;
       }
 
-      searchByCountry.addEventListener("blur", searchFunction);
+      searchByCountry.addEventListener("input", searchFunction);
       async function searchFunction(e) {
         e.preventDefault();
         if(e.target.value!=''){
@@ -59,8 +69,27 @@
         }
       }
 
+      byRegion.addEventListener('change',regionSearch)
+      
+      async function regionSearch(e){
+        e.preventDefault();
+        if(e.target.value!='Filter By Region'){
+            resourses= `https://restcountries.com/v3.1/region/${e.target.value}`
+            retrieveData(resourses)
+        }
+        else{
+            resourses = `https://restcountries.com/v3.1/all`;
+            retrieveData(resourses);
+        }
+
+
+      }
+
+
+
+
       async function retrieveData(resourses) {
-        data = await findcountry(resourses);
+       let data = await findcountry(resourses);
         // console.log(data);
         const mainContainer = document.querySelector(".main__container");
         mainContainer.innerHTML = "";
