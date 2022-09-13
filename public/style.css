@@ -74,15 +74,19 @@
   align-items: left;
   box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.543);
   gap: 10px;
+  border-radius: 10px;
 }
 .contry__flag img {
+  box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.715);
   width: 100%;
   height: 130px;
+  border-radius: 10px;
 }
 
-.main__container, .main__container2 {
+.main__container {
   justify-content: space-around;
-  margin: 40px;
+  margin: 0px 40px;
+  margin-top: 30px;
   display: flex;
   gap: 40px;
   flex-wrap: wrap;

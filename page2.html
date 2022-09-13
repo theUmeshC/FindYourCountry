@@ -31,7 +31,7 @@
     </div>
 
     <div class="main__container"></div>
-    <div class="main__container2"></div>
+    
 
     <script>
       let data = [];
@@ -64,7 +64,6 @@
         // console.log(data);
         const mainContainer = document.querySelector(".main__container");
         mainContainer.innerHTML = "";
-
         data.splice(0, 10).map((item) => {
           const country = document.createElement("div");
           country.classList = "country";
