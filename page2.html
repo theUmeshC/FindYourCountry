@@ -1,24 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Your Country</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="search__container">
+      <div class="search__country">
+        <i class="fa fa-search" aria-hidden="true"></i>
 
+        <input type="text" placeholder="Search for a country" />
+      </div>
+      <div class="search__country">
+        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+        <select name="" id="">
+          <option value="">Filter By Region</option>
+        </select>
+      </div>
+    </div>
+    
+      <div class="main__container"></div>
+    
 
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <h2>page2</h2>
-    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+    <script>
+      async function findcountry() {
+        const result = await fetch("https://restcountries.com/v3.1/all");
+        const data = await result.json();
+        return data;
+      }
 
-</body>
+      async function retrieveData() {
+        let data = await findcountry();
+        // console.log(data);
+        const mainContainer = document.querySelector(".main__container");
+
+        data.splice(0, 10).map((item) => {
+          const country = document.createElement("div");
+          country.classList = "country";
+          country.innerHTML = `
+        <div class="contry__flag">
+          <img id="imgSrc"
+            src="${item.flags.svg}"
+            alt="${item.name.common}/image"
+          />
+        </div>
+        
+        <div class="contry__details">
+          <h2>${item.name.common}</h2>
+          <div class="population">
+            <span class="title">Population :</span>
+            <span>${item.population}</span>
+          </div>
+          <div class="region">
+            <span class="title">Region :</span>
+            <span>${item.region}</span>
+          </div>
+          <div class="capital">
+            <span class="title">Capital : </span>
+            <span>${item.capital}</span>
+          </div>
+        </div>            
+            `;
+          mainContainer.appendChild(country);
+          console.log(item);
+        });
+      }
+      retrieveData();
+    </script>
+  </body>
 </html>
