@@ -39,7 +39,10 @@
     
 
     <script>
-      
+
+      let locationw= window.location.href;
+      console.log(locationw);
+
       let searchByCountry = document.querySelector("#search-by-country");
 
       let byRegion = document.querySelector('#select__region')
@@ -81,21 +84,16 @@
             resourses = `https://restcountries.com/v3.1/all`;
             retrieveData(resourses);
         }
-
-
       }
-
-
-
 
       async function retrieveData(resourses) {
        let data = await findcountry(resourses);
-        // console.log(data);
         const mainContainer = document.querySelector(".main__container");
         mainContainer.innerHTML = "";
         data.splice(0, 10).map((item) => {
           const country = document.createElement("div");
           country.classList = "country";
+          country.setAttribute('onclick','countryDetails()')
           country.innerHTML = `
         <div class="contry__flag">
           <img id="imgSrc"
@@ -121,8 +119,11 @@
         </div>            
             `;
           mainContainer.appendChild(country);
-          //   console.log(item);
         });
+      }
+      function countryDetails(e){
+        
+       
       }
     </script>
   </body>

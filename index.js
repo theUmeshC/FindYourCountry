@@ -11,6 +11,9 @@ app.get('/',(req,res)=>{
 app.get('/page2',(req,res)=>{
     res.sendFile('page2.html',{root:__dirname});
 });
+app.get('/page2/page3',(req,res)=>{
+    res.sendFile('page3.html',{root:__dirname});
+});
 
 
 app.listen(port,()=>{
