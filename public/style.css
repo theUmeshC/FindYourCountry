@@ -80,7 +80,7 @@
   height: 130px;
 }
 
-.main__container {
+.main__container, .main__container2 {
   justify-content: space-around;
   margin: 40px;
   display: flex;

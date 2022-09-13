@@ -16,7 +16,11 @@
       <div class="search__country">
         <i class="fa fa-search" aria-hidden="true"></i>
 
-        <input type="text" placeholder="Search for a country" />
+        <input
+          type="text"
+          id="search-by-country"
+          placeholder="Search for a country"
+        />
       </div>
       <div class="search__country">
         <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
@@ -25,21 +29,41 @@
         </select>
       </div>
     </div>
-    
-      <div class="main__container"></div>
-    
+
+    <div class="main__container"></div>
+    <div class="main__container2"></div>
 
     <script>
+      let data = [];
+      let searchByCountry = document.querySelector("#search-by-country");
+      let resourses = `https://restcountries.com/v3.1/all`;
+      document.addEventListener("DOMContentLoaded", retrieveData(resourses));
+
       async function findcountry() {
-        const result = await fetch("https://restcountries.com/v3.1/all");
+        const result = await fetch(resourses);
         const data = await result.json();
         return data;
       }
 
-      async function retrieveData() {
-        let data = await findcountry();
+      searchByCountry.addEventListener("blur", searchFunction);
+      async function searchFunction(e) {
+        e.preventDefault();
+        if(e.target.value!=''){
+        resourses = `https://restcountries.com/v3.1/name/${e.target.value}`;
+        
+            retrieveData(resourses);
+        }
+        else{
+            resourses = `https://restcountries.com/v3.1/all`;
+            retrieveData(resourses);
+        }
+      }
+
+      async function retrieveData(resourses) {
+        data = await findcountry(resourses);
         // console.log(data);
         const mainContainer = document.querySelector(".main__container");
+        mainContainer.innerHTML = "";
 
         data.splice(0, 10).map((item) => {
           const country = document.createElement("div");
@@ -69,10 +93,9 @@
         </div>            
             `;
           mainContainer.appendChild(country);
-          console.log(item);
+          //   console.log(item);
         });
       }
-      retrieveData();
     </script>
   </body>
 </html>
