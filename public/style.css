@@ -109,3 +109,47 @@
 .title {
   font-weight: 700;
 }
+
+.btn {
+  padding: 5px 10px ;
+  margin: 10px;
+
+}
+.country__details{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 60px;
+  padding: 20px;
+}
+.country__detailsImg img{
+  max-width: 280px;
+} 
+.country__detailsLeftRight{
+  display: flex;
+  gap: 90px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 0px 25px 0px;
+}
+.country__detailsLeft h1{
+font-size: 22px;
+margin-bottom: 15px;
+}
+.title , .value {
+  font-size: 12px;
+}
+.country__detailsBottom{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.country__detailsBottom h2{
+  font-size: 13px;
+}
+
+.border__country{
+  border: solid rgba(128, 128, 128, 0.614) 1px;
+  padding: 3px 15px;
+  border-radius: 5px ;
+}
