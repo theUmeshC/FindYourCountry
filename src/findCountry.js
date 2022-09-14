@@ -7,6 +7,7 @@
       let resourses = `https://restcountries.com/v3.1/all`;
 
       document.addEventListener("DOMContentLoaded", retrieveData(resourses));
+      document.addEventListener("DOMContentLoaded", regionPopulation("https://restcountries.com/v3.1/all"));
 
 
      
@@ -58,11 +59,8 @@
         }
       }
 
-      async function retrieveData(resourses) {
-        let data = await findcountry(resourses);    
-
-        const mainContainer = document.querySelector(".main__container");
-        mainContainer.innerHTML = "";  
+      async function regionPopulation(resourses){
+        let data = await findcountry(resourses);   
         let regions =[]
         data.map((items)=>{
           regions.push(items.region)
@@ -72,13 +70,20 @@
         uniqueAndSortedRegions.map((region)=>{
           const option= document.createElement('option')
           option.value=region
+                  
           option.innerHTML=`
           ${region}
           `
           selectRegion.appendChild(option)
-        })
+        }) 
         
+      }
 
+      async function retrieveData(resourses) {
+        let data = await findcountry(resourses);    
+
+        const mainContainer = document.querySelector(".main__container");
+        mainContainer.innerHTML = "";      
 
         data.map((item) => {
           
