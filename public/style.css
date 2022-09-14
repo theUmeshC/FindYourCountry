@@ -93,6 +93,7 @@
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
+  
 }
 .contry__details {
   padding: 0px 10px;
