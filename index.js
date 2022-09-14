@@ -11,6 +11,11 @@ app.get('/',(req,res)=>{
 app.get('/page2',(req,res)=>{
     res.sendFile('page2.html',{root:__dirname});
 });
+app.get('/src/:subPath',(req,res)=>{
+    let subPath= req.params.subPath;
+    res.sendFile(`src/${subPath}`,{root:__dirname});
+});
+
 
 
 app.listen(port,()=>{
