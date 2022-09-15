@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
-/* eslint-disable linebreak-style */
+
 const searchByCountry = document.querySelector('#search-by-country');
 
 const byRegion = document.querySelector('#select__region');
