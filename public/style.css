@@ -25,17 +25,16 @@
 }
 .login__input {
   height: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border-radius: 0;
   border: none;
 }
-#login__userName,
-#login__password {
-  background-color: rgba(128, 128, 128, 0.566);
-  opacity: 0.9;
+#emailHelp{
+  color: red;
+  visibility: hidden ;
 }
-#login__userName::placeholder,
-#login__password::placeholder,
+
+
 #checkbox__label {
   color: rgb(95, 95, 95);
   padding-left: 10px;
