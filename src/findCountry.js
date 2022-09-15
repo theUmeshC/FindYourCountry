@@ -1,98 +1,94 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
+/* eslint-disable no-use-before-define */
+/* eslint-disable linebreak-style */
+const searchByCountry = document.querySelector('#search-by-country');
 
-      let searchByCountry = document.querySelector("#search-by-country");
+const byRegion = document.querySelector('#select__region');
 
-      let byRegion = document.querySelector("#select__region");
+let resourses = 'https://restcountries.com/v3.1/all';
 
+document.addEventListener('DOMContentLoaded', retrieveData(resourses));
+document.addEventListener('DOMContentLoaded', regionPopulation('https://restcountries.com/v3.1/all'));
 
-      let resourses = `https://restcountries.com/v3.1/all`;
+async function findcountry(resourses) {
+  const result = await fetch(resourses);
+  const data = await result.json();
+  return data;
+}
 
-      document.addEventListener("DOMContentLoaded", retrieveData(resourses));
-      document.addEventListener("DOMContentLoaded", regionPopulation("https://restcountries.com/v3.1/all"));
+const debounce = (fn, delay) => {
+  let timeoutId;
+  return (...args) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+};
 
+searchByCountry.addEventListener('input', debounce(searchFunction, 1500));
 
-     
-      async function findcountry(resourses) {
-        const result = await fetch(resourses);
-        const data = await result.json();
-        return data;
-      }
-      
-      const debounce=(fn,delay)=>{
-        let timeoutId;
-        return function(...args){
-          if(timeoutId){
-            clearTimeout(timeoutId)
-          }
-         timeoutId= setTimeout(()=>{
-          fn(...args)
-         },delay)
-        }
-      }
+async function searchFunction(e) {
+  e.preventDefault();
+  if (e.target.value !== '') {
+    resourses = `https://restcountries.com/v3.1/name/${e.target.value}`;
 
+    retrieveData(resourses);
+  } else {
+    resourses = 'https://restcountries.com/v3.1/all';
+    retrieveData(resourses);
+  }
+}
 
-      searchByCountry.addEventListener("input", debounce(searchFunction,1500));
+byRegion.addEventListener('change', regionSearch);
 
+async function regionSearch(e) {
+  e.preventDefault();
+  if (e.target.value !== 'Filter By Region') {
+    resourses = `https://restcountries.com/v3.1/region/${e.target.value}`;
+    retrieveData(resourses);
+  } else {
+    resourses = 'https://restcountries.com/v3.1/all';
+    retrieveData(resourses);
+  }
+}
 
-      async function searchFunction(e) {
-        e.preventDefault();
-          if (e.target.value != "") {
-          resourses = `https://restcountries.com/v3.1/name/${e.target.value}`;
+async function regionPopulation(resourses) {
+  const data = await findcountry(resourses);
+  const regions = [];
+  data.map((items) => {
+    regions.push(items.region);
+  });
+  const uniqueAndSortedRegions = [...new Set(regions)].sort();
+  const selectRegion = document.querySelector('.select__region');
+  uniqueAndSortedRegions.map((region) => {
+    const option = document.createElement('option');
+    option.value = region;
 
-          retrieveData(resourses);
-        } else {
-          resourses = `https://restcountries.com/v3.1/all`;
-          retrieveData(resourses);
-        }
-      }
-
-
-      byRegion.addEventListener("change", regionSearch);
-
-      async function regionSearch(e) {
-        e.preventDefault();
-        if (e.target.value != "Filter By Region") {
-          resourses = `https://restcountries.com/v3.1/region/${e.target.value}`;
-          retrieveData(resourses);
-        } else {
-          resourses = `https://restcountries.com/v3.1/all`;
-          retrieveData(resourses);
-        }
-      }
-
-      async function regionPopulation(resourses){
-        let data = await findcountry(resourses);   
-        let regions =[]
-        data.map((items)=>{
-          regions.push(items.region)
-        })
-        let uniqueAndSortedRegions = [...new Set(regions)].sort();
-        const selectRegion = document.querySelector(".select__region");
-        uniqueAndSortedRegions.map((region)=>{
-          const option= document.createElement('option')
-          option.value=region
-                  
-          option.innerHTML=`
+    option.innerHTML = `
           ${region}
-          `
-          selectRegion.appendChild(option)
-        }) 
-        
-      }
+          `;
+    selectRegion.appendChild(option);
+  });
+}
 
-      async function retrieveData(resourses) {
-        let data = await findcountry(resourses);    
+async function retrieveData(resourses) {
+  const data = await findcountry(resourses);
 
-        const mainContainer = document.querySelector(".main__container");
-        mainContainer.innerHTML = "";      
+  const mainContainer = document.querySelector('.main__container');
+  mainContainer.innerHTML = '';
 
-        data.map((item) => {
-          
-          
-          let country = document.createElement("div");
-          country.classList = "country";
-          country.setAttribute("onclick", `countryDetails(this)`);
+  data.map((item) => {
+    const country = document.createElement('div');
+    country.classList = 'country';
+    country.setAttribute('onclick', 'countryDetails(this)');
 
-          country.innerHTML = `
+    country.innerHTML = `
         <div class="contry__flag">
           <img id="imgSrc"
             src="${item.flags.svg}"
@@ -116,42 +112,36 @@
           </div>
         </div>            
             `;
-          mainContainer.appendChild(country);
-        });
-        
+    mainContainer.appendChild(country);
+  });
+}
 
+function countryDetails(name) {
+  const capital = name.children[1].children[3].children[1].innerHTML;
+  resourses = `https://restcountries.com/v3.1/capital/${capital}`;
+  retriveDataDetails(resourses);
+}
 
-      }
+async function retriveDataDetails(resourses) {
+  const data = await findcountry(resourses);
+  const mainContainer = document.querySelector('.main__container');
+  mainContainer.style = 'display:none';
+  const mainContainer2 = document.querySelector('.main__container2');
 
-      function countryDetails(name) {
-        const capital = name.children[1].children[3].children[1].innerHTML;
-        resourses = `https://restcountries.com/v3.1/capital/${capital}`;
-        retriveDataDetails(resourses);
-      }
+  const searchContainer = document.querySelector('.search__container');
 
-      async function retriveDataDetails(resourses) {
-        const locationw = window.location.href;
-        let data = await findcountry(resourses);
-        console.log(data);
-        const mainContainer = document.querySelector(".main__container");
-        mainContainer.style = "display:none";
-        const mainContainer2 = document.querySelector(".main__container2");
+  searchContainer.style = 'display:none';
 
-        const searchContainer = document.querySelector(".search__container");
+  const backButton = document.createElement('button');
+  backButton.classList = 'btn';
+  backButton.innerText = 'Go back';
+  document.body.prepend(backButton);
+  backButton.setAttribute('onclick', 'goBack()');
+  const countryDetails = document.createElement('div');
+  countryDetails.classList = 'country__details';
+  mainContainer2.innerHTML = '';
 
-        searchContainer.style = "display:none";
-
-        const backButton = document.createElement("button");
-        backButton.classList = "btn";
-        backButton.innerText = "Go back";
-        document.body.prepend(backButton);
-        backButton.setAttribute("onclick", "goBack()");
-        let countryDetails = document.createElement("div");
-        countryDetails.classList = "country__details";
-        mainContainer2.innerHTML = "";
-        
-
-        countryDetails.innerHTML = `
+  countryDetails.innerHTML = `
         <div class="country__detailsImg">
         <img src="${data[0].flags.svg}" alt="">
         </div>
@@ -162,8 +152,8 @@
             <div class="nativeName">
               <span class="title">Native Name: </span>
               <span class="value">${
-                Object.values(data[0].name.nativeName)[0].official
-              }</span>
+  Object.values(data[0].name.nativeName)[0].official
+}</span>
             </div>
             <div class="population">
               <span class="title">Population: </span>
@@ -190,8 +180,8 @@
             <div class="currencies">
               <span class="title">Curriencies: </span>
               <span class="value">${
-                Object.values(data[0].currencies)[0].name
-              }{ ${Object.values(data[0].currencies)[0].symbol}}</span> 
+  Object.values(data[0].currencies)[0].name
+}{ ${Object.values(data[0].currencies)[0].symbol}}</span> 
             </div>
             <div class="languages">
               <span class="title">Languages: </span>
@@ -215,19 +205,18 @@
           
           `;
 
-        document.body.append(mainContainer2);
-        mainContainer2.appendChild(countryDetails);
-      }
-      function goBack() {
-        const backBtn = document.querySelector(".btn");
-        const mainContainer2 = document.querySelector(".main__container2");
+  document.body.append(mainContainer2);
+  mainContainer2.appendChild(countryDetails);
+}
+function goBack() {
+  const backBtn = document.querySelector('.btn');
+  const mainContainer2 = document.querySelector('.main__container2');
 
-        mainContainer2.innerHTML='';
+  mainContainer2.innerHTML = '';
 
-
-        const searchContainer = document.querySelector(".search__container");
-        searchContainer.style = "display:flex";
-        const mainContainer = document.querySelector(".main__container");
-        mainContainer.style = "display:flex";
-        backBtn.style = "display:none";
-      }
+  const searchContainer = document.querySelector('.search__container');
+  searchContainer.style = 'display:flex';
+  const mainContainer = document.querySelector('.main__container');
+  mainContainer.style = 'display:flex';
+  backBtn.style = 'display:none';
+}
