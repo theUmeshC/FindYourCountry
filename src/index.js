@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import page2 from './page2.js'
+import countryList from './countryList.js'
 
 const root = document.getElementById('root');
 root.innerHTML = `
@@ -44,7 +44,6 @@ const password = document.querySelector('#login__password');
 const form = document.querySelector('#formTag');
 
 function formSubmit(e) {
-
   e.preventDefault();
   const userNameValue = userName.value;
   const passwordValue = password.value;
@@ -62,7 +61,7 @@ function formSubmit(e) {
     errorMessage.innerHTML = ' password is incorrect should contain one Capital one symbol one number and contain characters in the range of 6-16 ';
     return;
   }
-
-  page2();
+  countryList();
 }
+
 form.addEventListener('submit', formSubmit);

@@ -1,18 +1,17 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
-// import countryDetails from './countryDetails.js';
+import retriveDataDetails from './countryDetails.js';
 
-export async function findcountry(resourses) {
+async function findcountry(resourses) {
   const result = await fetch(resourses);
   const data = await result.json();
   return data;
 }
 
-function page2() {
+function countryList() {
   const root = document.getElementById('root');
   root.innerHTML = '';
   root.innerHTML = `
@@ -111,9 +110,7 @@ async function retrieveData(resourses) {
   data.map((item) => {
     const country = document.createElement('div');
     country.classList = 'country';
-    country.addEventListener('click', (e) => {
-      countryDetails(e);
-    });
+    country.addEventListener('click', (e) => { countryDetails(e); });
     country.innerHTML = `
             <div class='contry__flag'>
               <img id='imgSrc'
@@ -142,5 +139,12 @@ async function retrieveData(resourses) {
     return undefined;
   });
 }
+async function countryDetails(e) {
+  e.preventDefault();
+  const capital = e.target.parentElement.parentElement.children[1].children[3].children[1].innerHTML;
+  const resourses = `https://restcountries.com/v3.1/capital/${capital}`;
+  const data = await findcountry(resourses);
+  retriveDataDetails(data);
+}
 
-export default page2;
+export default countryList;
