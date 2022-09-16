@@ -5,38 +5,38 @@
 
 const root = document.getElementById('root');
 root.innerHTML = `
-<div class="login__container">
-      <form class="login__form" id="formTag">
-        <h2 id="login__title">LOGIN</h2>
+<div class='login__container'>
+      <form class='login__form' id='formTag'>
+        <h2 id='login__title'>LOGIN</h2>
         <input
-          type="email"
-          class="login__input form-control"
-          placeholder="Username"
-          id="login__userName"
+          type='email'
+          class='login__input form-control'
+          placeholder='Username'
+          id='login__userName'
         />
         
         <input
-          type="password"
-          class="login__input form-control"
-          placeholder="password"
-          id="login__password"
+          type='password'
+          class='login__input form-control'
+          placeholder='password'
+          id='login__password'
         />
-        <small id="emailHelp" class="form-text"></small>
-        <div class="checkbox-forgot">
-          <div class="checkbox-container">
-            <input type="checkbox" name="" id="login__checkbox" /><label
-              id="checkbox__label"
-              for="login__checkbox"
+        <small id='emailHelp' class='form-text'></small>
+        <div class='checkbox-forgot'>
+          <div class='checkbox-container'>
+            <input type='checkbox' name='' id='login__checkbox' /><label
+              id='checkbox__label'
+              for='login__checkbox'
               >Remember me</label
             >
           </div>
-          <a href="" id="forgot">Forgot?</a>
+          <a href='' id='forgot'>Forgot?</a>
         </div>
         <input
-          type="submit"
-          class="login__input"
-          id="login__submitBtn"
-          value="Login"
+          type='submit'
+          class='login__input'
+          id='login__submitBtn'
+          value='Login'
         />
       </form>
     </div>
@@ -71,27 +71,27 @@ form.addEventListener('submit', formSubmit);
 function page2() {
   root.innerHTML = '';
   root.innerHTML = `
- <div class="page2">
+ <div class='page2'>
 
-      <div class="search__container">
-        <div class="search__country">
-          <i class="fa fa-search" aria-hidden="true"></i>
+      <div class='search__container'>
+        <div class='search__country'>
+          <i class='fa fa-search' aria-hidden='true'></i>
   
           <input
-            type="text"
-            id="search-by-country"
-            placeholder="Search for a country"
+            type='text'
+            id='search-by-country'
+            placeholder='Search for a country'
           />
         </div>
-        <div class="search__country">
-          <select name="" class="select__region" id="select__region">
-            <option value="Filter By Region">Filter By Region</option>
+        <div class='search__country'>
+          <select name='' class='select__region' id='select__region'>
+            <option value='Filter By Region'>Filter By Region</option>
           </select>
         </div>
       </div>
   
-      <div class="main__container"></div>
-      <div class="main__container2"></div>
+      <div class='main__container'></div>
+      <div class='main__container2'></div>
     </div>
 
  `;
@@ -143,27 +143,29 @@ function page2() {
     data.map((item) => {
       const country = document.createElement('div');
       country.classList = 'country';
-      country.addEventListener('click', (e) => { countryDetails(e); });
+      country.addEventListener('click', (e) => {
+        countryDetails(e);
+      });
       country.innerHTML = `
-        <div class="contry__flag">
-          <img id="imgSrc"
-            src="${item.flags.svg}"
-            alt="${item.name.common}/image"
+        <div class='contry__flag'>
+          <img id='imgSrc'
+            src='${item.flags.svg}'
+            alt='${item.name.common}/image'
           />
         </div>
         
-        <div class="contry__details">
+        <div class='contry__details'>
           <h2>${item.name.common}</h2>
-          <div class="population">
-            <span class="title">Population :</span>
+          <div class='population'>
+            <span class='title'>Population :</span>
             <span>${item.population}</span>
           </div>
-          <div class="region">
-            <span class="title">Region :</span>
+          <div class='region'>
+            <span class='title'>Region :</span>
             <span>${item.region}</span>
           </div>
-          <div class="capital">
-            <span class="title">Capital : </span>
+          <div class='capital'>
+            <span class='title'>Capital : </span>
             <span>${item.capital}</span>
           </div>
         </div>            
@@ -196,7 +198,6 @@ function page2() {
     e.preventDefault();
     if (e.target.value !== '') {
       resourses = `https://restcountries.com/v3.1/name/${e.target.value}`;
-
       retrieveData(resourses);
     } else {
       resourses = 'https://restcountries.com/v3.1/all';
@@ -220,68 +221,66 @@ function page2() {
     backButton.classList = 'btn btn-secondary';
     backButton.innerText = 'Go back';
     document.body.prepend(backButton);
-    backButton.addEventListener('click', () => { goBack(); });
+    backButton.addEventListener('click', () => {
+      goBack();
+    });
     const countryDetail = document.createElement('div');
     countryDetail.classList = 'country__details';
     mainContainer2.innerHTML = '';
 
     countryDetail.innerHTML = `
-        <div class="country__detailsImg">
-        <img src="${data[0].flags.svg}" alt="">
+        <div class='country__detailsImg'>
+        <img src='${data[0].flags.svg}' alt=''>
         </div>
-        <div class="country__detailsDetails">
-         <div class="country__detailsLeftRight">
-          <div class="country__detailsLeft">
+        <div class='country__detailsDetails'>
+         <div class='country__detailsLeftRight'>
+          <div class='country__detailsLeft'>
             <h1>${data[0].name.common}</h1>
-            <div class="nativeName">
-              <span class="title">Native Name: </span>
-              <span class="value">${
-  Object.values(data[0].name.nativeName)[0].official
-}</span>
+            <div class='nativeName'>
+              <span class='title'>Native Name: </span>
+              <span class='value'>${Object.values(data[0].name.nativeName)[0].official}</span>
             </div>
-            <div class="population">
-              <span class="title">Population: </span>
-              <span class="value">${data[0].population}</span>
+            <div class='population'>
+              <span class='title'>Population: </span>
+              <span class='value'>${data[0].population}</span>
             </div>
-            <div class="region">
-              <span class="title">Region: </span>
-              <span class="value">${data[0].region}</span>
+            <div class='region'>
+              <span class='title'>Region: </span>
+              <span class='value'>${data[0].region}</span>
             </div>
-            <div class="subRegion">
-              <span class="title">Sub Region: </span>
-              <span class="value">${data[0].subregion}</span>
+            <div class='subRegion'>
+              <span class='title'>Sub Region: </span>
+              <span class='value'>${data[0].subregion}</span>
             </div>
-            <div class="capital">
-              <span class="title">Capital: </span>
-              <span class="value">${data[0].capital[0]}</span> 
+            <div class='capital'>
+              <span class='title'>Capital: </span>
+              <span class='value'>${data[0].capital[0]}</span> 
             </div>
           </div>
-          <div class="country__detailsRight">
-            <div class="topLevelDomain">
-              <span class="title">Top Level Domain: </span>
-              <span class="value">.${data[0].altSpellings[0]}</span> 
+          <div class='country__detailsRight'>
+            <div class='topLevelDomain'>
+              <span class='title'>Top Level Domain: </span>
+              <span class='value'>.${data[0].altSpellings[0]}</span> 
             </div>
-            <div class="currencies">
-              <span class="title">Curriencies: </span>
-              <span class="value">${
-  Object.values(data[0].currencies)[0].name
-}{ ${Object.values(data[0].currencies)[0].symbol}}</span> 
+            <div class='currencies'>
+              <span class='title'>Curriencies: </span>
+              <span class='value'>${Object.values(data[0].currencies)[0].name}{${Object.values(data[0].currencies)[0].symbol}}</span> 
             </div>
-            <div class="languages">
-              <span class="title">Languages: </span>
-              <span class="value">${Object.values(data[0].languages)[0]}</span>
+            <div class='languages'>
+              <span class='title'>Languages: </span>
+              <span class='value'>${Object.values(data[0].languages)[0]}</span>
             </div>
           </div>
         </div>
-        <div class="country__detailsBottom">
+        <div class='country__detailsBottom'>
           <h2>Border Countries:</h2>
-          <span class="border__country">
+          <span class='border__country'>
             ${data[0].borders[0]}
           </span>
-          <span class="border__country">
+          <span class='border__country'>
             ${data[0].borders[1]} 
           </span>
-          <span class="border__country">
+          <span class='border__country'>
             ${data[0].borders[2]} 
           </span>
         </div>
@@ -303,10 +302,6 @@ function page2() {
     mainContainer.style = 'display:flex';
     backBtn.style = 'display:none';
   }
-
   document.addEventListener('DOMContentLoaded', retrieveData(resourses));
-  document.addEventListener(
-    'DOMContentLoaded',
-    regionPopulation('https://restcountries.com/v3.1/all'),
-  );
+  document.addEventListener('DOMContentLoaded', regionPopulation('https://restcountries.com/v3.1/all'));
 }
