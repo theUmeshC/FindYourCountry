@@ -16,4 +16,4 @@ app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`now listening on port ${port}`);
 });
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
