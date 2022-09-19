@@ -26,6 +26,7 @@ export const debounce = (fn, delay) => {
 };
 
 function countryList() {
+  sessionStorage.setItem('countryList', true);
   const root = document.getElementById('root');
   root.innerHTML = '';
   root.innerHTML = `
@@ -46,7 +47,6 @@ function countryList() {
         </div>
       </div>
       <div class='main__container'></div>
-      <div class='main__container2'></div>
   </div>
   `;
   const searchByCountry = document.querySelector('#search-by-country');
@@ -154,12 +154,27 @@ async function reDataMap() {
   dataMap('https://restcountries.com/v3.1/all', true);
 }
 
-async function countryDetails(e) {
+function countryDetails(e) {
   e.preventDefault();
   const capital = e.target.parentElement.parentElement.children[1].children[3].children[1].innerHTML;
+  const mainContainer = document.querySelector('.main__container');
+  mainContainer.remove();
+  const searchContainer = document.querySelector('.search__container');
+  searchContainer.remove();
+  countryDetailsLoad(capital);
+  sessionStorage.setItem('capital', `${capital}`);
+}
+export async function countryDetailsLoad(capital) {
   const resourses = `https://restcountries.com/v3.1/capital/${capital}`;
   const data = await findcountry(resourses);
   retriveDataDetails(data);
+}
+export function handleGoback() {
+  // const mainContainer = document.querySelector('.main__container');
+  // mainContainer.style = 'display:flex';
+  // const searchContainer = document.querySelector('.search__container');
+  // searchContainer.style = 'display:flex';
+  countryList();
 }
 
 export default countryList;

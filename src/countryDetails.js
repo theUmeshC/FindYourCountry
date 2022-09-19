@@ -1,24 +1,22 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-cycle */
+/* eslint-disable import/extensions */
+
+import { handleGoback } from './countryList.js';
 
 function goBack() {
+  sessionStorage.setItem('countryList', true);
+  sessionStorage.removeItem('countryList');
   const backBtn = document.querySelector('.btn');
+  backBtn.style = 'display:none';
   const mainContainer2 = document.querySelector('.main__container2');
   mainContainer2.innerHTML = '';
-  const searchContainer = document.querySelector('.search__container');
-  searchContainer.style = 'display:flex';
-  const mainContainer = document.querySelector('.main__container');
-  mainContainer.style = 'display:flex';
-  backBtn.style = 'display:none';
+  handleGoback();
 }
 function retriveDataDetails(data) {
-  const mainContainer = document.querySelector('.main__container');
-  mainContainer.style = 'display:none';
-  const mainContainer2 = document.querySelector('.main__container2');
-
-  const searchContainer = document.querySelector('.search__container');
-
-  searchContainer.style = 'display:none';
-
+  const mainContainer2 = document.createElement('div');
+  mainContainer2.classList = 'main__container2';
+  sessionStorage.removeItem('countryList');
   const backButton = document.createElement('button');
   backButton.classList = 'btn btn-secondary btn__back';
   backButton.innerText = 'Go back';
