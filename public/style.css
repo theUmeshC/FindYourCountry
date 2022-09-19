@@ -96,7 +96,7 @@ section {
   transition: ease-in-out 700ms;
 }
 .country:hover {
-  transform: scale(1.06);
+  transform: scale(1.2);
 }
 .contry__flag img {
   box-shadow: 1.5px 1.5px 1.5px 1.5px rgba(104, 104, 104, 0.724);
