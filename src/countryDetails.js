@@ -11,7 +11,6 @@ function goBack() {
   backBtn.style = 'display:none';
 }
 function retriveDataDetails(data) {
-  console.log(data);
   const mainContainer = document.querySelector('.main__container');
   mainContainer.style = 'display:none';
   const mainContainer2 = document.querySelector('.main__container2');
