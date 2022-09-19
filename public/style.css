@@ -145,6 +145,7 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100vw;
+  z-index: -9;
 }
 .country__detailsImg img {
   width: 280px;
@@ -178,4 +179,7 @@ section {
   border: solid rgba(128, 128, 128, 0.614) 1px;
   padding: 3px 15px;
   border-radius: 5px;
+}
+.btn__back{
+z-index: 999;
 }
