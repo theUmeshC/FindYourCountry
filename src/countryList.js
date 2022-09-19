@@ -145,16 +145,13 @@ async function dataMap(resourses, state) {
       mainContainer.append(btn);
       btn.addEventListener('click', () => { reDataMap(); });
     }
-  } else {
-    const btn = document.querySelector('.show__more');
-    btn.remove();
   }
 }
 async function reDataMap() {
   i += 18;
-  dataMap('https://restcountries.com/v3.1/all', true);
   const btn = document.querySelector('.show__more');
   btn.remove();
+  dataMap('https://restcountries.com/v3.1/all', true);
 }
 
 async function countryDetails(e) {
