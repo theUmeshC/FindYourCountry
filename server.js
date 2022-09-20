@@ -12,6 +12,10 @@ app.get('/src/:subPath', (req, res) => {
   const { subPath } = req.params;
   res.sendFile(`src/${subPath}`, { root: __dirname });
 });
+app.get('/dist/:subPath', (req, res) => {
+  const { subPath } = req.params;
+  res.sendFile(`dist/${subPath}`, { root: __dirname });
+});
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`now listening on port ${port}`);

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
 /* eslint-disable import/extensions */
 /* eslint-disable no-shadow */
@@ -6,6 +7,7 @@
 /* eslint-disable max-len */
 
 import retriveDataDetails from './countryDetails.js';
+import Login from './index.js';
 
 let i = 0;
 const regions = [];
@@ -17,7 +19,7 @@ async function findcountry(resourses) {
   return data;
 }
 
-/* debounce function to maintain function call*/
+/* debounce function to maintain function call */
 export const debounce = (fn, delay) => {
   let timeoutId;
   return (...args) => {
@@ -38,7 +40,7 @@ function countryList() {
   root.innerHTML = `
     <div class='page2'>
       <div class='search__container'>
-        <div class='search__country'>
+        <div class='search__country search__txt'>
           <i class='fa fa-search' aria-hidden='true'></i>
           <input
             type='text'
@@ -46,19 +48,28 @@ function countryList() {
             placeholder='Search for a country'
           />
         </div>
-        <div class='search__country '>
-          <select name='' class='select__region form-select' id='select__region'>
-            <option selected>Filter By Region</option>
-          </select>
+        <div class='right'>
+          <div class=' '>
+            <select name='' class='select__region form-select' id='select__region'>
+              <option selected>Filter By Region</option>
+            </select>
+          </div>
+          <div class='log__out '>
+          <button class='btn btn-primary log__outBTN'>Logout</button>
+          </div>
         </div>
-        <div class='search__country log__out '>
-          <button class='btn btn-primary log__outBTN' onclick='logOut()'>Logout</button>
-        </div>
-
-      </div>
+     </div>
       <div class='main__container'></div>
   </div>
   `;
+  function logOut() {
+    sessionStorage.removeItem('country');
+    sessionStorage.removeItem('countryList');
+    Login();
+  }
+  const logoutbtn = document.querySelector('.log__outBTN');
+  logoutbtn.addEventListener('click', logOut);
+
   const searchByCountry = document.querySelector('#search-by-country');
   const byRegion = document.querySelector('#select__region');
   let resourses = 'https://restcountries.com/v3.1/all';
@@ -76,7 +87,7 @@ function countryList() {
   }
   byRegion.addEventListener('change', regionSearch);
 
-  /* search function based on input data*/
+  /* search function based on input data */
   async function searchFunction(e) {
     e.preventDefault();
     if (e.target.value !== '') {
@@ -162,7 +173,7 @@ async function reDataMap() {
   btn.remove();
   dataMap('https://restcountries.com/v3.1/all', true);
 }
-/* to call load countrydetails function and set sessionStorage to respective country*/
+/* to call load countrydetails function and set sessionStorage to respective country */
 function countryDetails(e, capital) {
   e.preventDefault();
   const mainContainer = document.querySelector('.main__container');
@@ -172,13 +183,13 @@ function countryDetails(e, capital) {
   countryDetailsLoad(capital);
   sessionStorage.setItem('capital', `${capital}`);
 }
-/* fetch perticular country and calls data mapping function*/
+/* fetch perticular country and calls data mapping function */
 export async function countryDetailsLoad(capital) {
   const resourses = `https://restcountries.com/v3.1/capital/${capital}`;
   const data = await findcountry(resourses);
   retriveDataDetails(data);
 }
-/* rendering list page function*/
+/* rendering list page function */
 export function handleGoback() {
   countryList();
 }

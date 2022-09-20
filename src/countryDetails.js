@@ -3,17 +3,32 @@
 /* eslint-disable import/extensions */
 
 import { handleGoback } from './countryList.js';
-/* function to handel back button and calling function which retrives list*/
+import Login from './index.js';
+
+/* handeling Logout button event */
+function logOut() {
+  const logoutbtn2 = document.querySelector('.details__logout2');
+  const mainContainer2 = document.querySelector('.main__container2');
+  mainContainer2.remove();
+  const backBtn = document.querySelector('.btn__back');
+  backBtn.remove();
+  logoutbtn2.remove();
+  sessionStorage.removeItem('capital');
+  Login();
+}
+/* function to handel back button and calling function which retrives list */
 function goBack() {
+  const logoutbtn2 = document.querySelector('.details__logout2');
   sessionStorage.setItem('countryList', true);
   sessionStorage.removeItem('countryList');
-  const backBtn = document.querySelector('.btn');
+  const backBtn = document.querySelector('.btn__back');
   backBtn.style = 'display:none';
   const mainContainer2 = document.querySelector('.main__container2');
   mainContainer2.innerHTML = '';
+  logoutbtn2.remove();
   handleGoback();
 }
-/* map countrydetails and render*/
+/* map countrydetails, back button logout button and render */
 function retriveDataDetails(data) {
   const mainContainer2 = document.createElement('div');
   mainContainer2.classList = 'main__container2';
@@ -25,6 +40,12 @@ function retriveDataDetails(data) {
   backButton.addEventListener('click', () => {
     goBack();
   });
+  const logoutbtn = document.createElement('button');
+  logoutbtn.classList = 'btn btn-primary log__outBTN details__logout2';
+  logoutbtn.innerHTML = 'Logout';
+  document.body.prepend(logoutbtn);
+  logoutbtn.addEventListener('click', () => { logOut(); });
+
   const countryDetail = document.createElement('div');
   countryDetail.classList = 'country__details';
   mainContainer2.innerHTML = '';
