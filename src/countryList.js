@@ -54,7 +54,6 @@ function countryList() {
   const byRegion = document.querySelector('#select__region');
   let resourses = 'https://restcountries.com/v3.1/all';
 
-
   async function regionSearch(e) {
     e.preventDefault();
     if (e.target.value !== 'Filter By Region') {
@@ -78,9 +77,7 @@ function countryList() {
     }
   }
   searchByCountry.addEventListener('input', debounce(searchFunction, 500));
-
   document.addEventListener('DOMContentLoaded', retrieveData(resourses, true));
-
 }
 
 async function retrieveData(resourses, state) {
@@ -88,19 +85,18 @@ async function retrieveData(resourses, state) {
   mainContainer.innerHTML = '';
   await dataMap(resourses, state);
   function regionPopulation() {
-    const uniqueAndSortedRegions = [...new Set(regions)].sort();   
+    const uniqueAndSortedRegions = [...new Set(regions)].sort();
     const selectRegion = document.querySelector('.select__region');
     uniqueAndSortedRegions.map((region) => {
       const option = document.createElement('option');
       option.value = region;
       option.innerHTML = `
-            ${region}
-            `;
+      ${region}
+      `;
       selectRegion.appendChild(option);
       return undefined;
     });
-  
-}
+  }
   regionPopulation();
 }
 async function dataMap(resourses, state) {

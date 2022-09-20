@@ -1,17 +1,16 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/extensions */
-import { countryDetailsLoad } from "./countryList.js";
+import { countryDetailsLoad } from './countryList.js';
 import countryList from './countryList.js';
 
 function loadHandling() {
   if (sessionStorage.getItem('countryList')) {
     countryList();
-  } else if (Boolean(sessionStorage.getItem('capital'))) {
+  } else if ((sessionStorage.getItem('capital'))) {
     countryDetailsLoad(sessionStorage.getItem('capital'));
   } else {
     const root = document.getElementById('root');
-    root.innerHTML = 
-    `
+    root.innerHTML = `
       <div class='login__container'>
         <form class='login__form' id='formTag'>
           <h2 id='login__title'>LOGIN</h2>

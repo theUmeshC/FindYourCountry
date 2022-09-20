@@ -91,13 +91,13 @@ function retriveDataDetails(data) {
     <div class='country__detailsBottom'>
       <h2>Border Countries:</h2>
       <span class='border__country'>
-        ${Boolean(data[0].borders)?`${data[0].borders[0]}`:`null`}
+        ${(data[0].borders) ? `${data[0].borders[0]}` : 'null'}
       </span>
       <span class='border__country'>
-        ${Boolean(data[0].borders)?`${data[0].borders[1]}`:`null`}
+        ${(data[0].borders) ? `${data[0].borders[1]}` : 'null'}
       </span>
       <span class='border__country'>
-        ${Boolean(data[0].borders)?`${data[0].borders[2]}`:`null`}
+        ${(data[0].borders) ? `${data[0].borders[2]}` : 'null'}
       </span>
     </div>
   </div>`;
