@@ -21,11 +21,6 @@
   align-self: flex-end;
 }
 
-.checkbox-forgot {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
 #login__title {
   text-align: center;
   font-size: 20px;
@@ -70,19 +65,30 @@
   cursor: pointer;
   z-index: 999;
 }
+.search__txt{
+  flex:1/2;
+}
+.right{
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
 section {
   cursor: pointer;
 }
 .search__country {
-  max-width: 185px;
   border: none;
   border-radius: 3px;
   padding: 5px;
   box-shadow: 1px 1px 1px 1px grey;
 }
+.details__logout2{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 .search__country input {
   border: none;
-  width: 145px;
 }
 .country {
   display: flex;
