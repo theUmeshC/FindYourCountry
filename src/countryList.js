@@ -7,6 +7,7 @@
 import retriveDataDetails from './countryDetails.js';
 
 let i = 0;
+const regions = [];
 
 async function findcountry(resourses) {
   const result = await fetch(resourses);
@@ -53,22 +54,6 @@ function countryList() {
   const byRegion = document.querySelector('#select__region');
   let resourses = 'https://restcountries.com/v3.1/all';
 
-  async function regionPopulation(resourses) {
-    const data = await findcountry(resourses);
-    const regions = [];
-    data.map((items) => regions.push(items.region));
-    const uniqueAndSortedRegions = [...new Set(regions)].sort();
-    const selectRegion = document.querySelector('.select__region');
-    uniqueAndSortedRegions.map((region) => {
-      const option = document.createElement('option');
-      option.value = region;
-      option.innerHTML = `
-            ${region}
-            `;
-      selectRegion.appendChild(option);
-      return undefined;
-    });
-  }
 
   async function regionSearch(e) {
     e.preventDefault();
@@ -96,22 +81,37 @@ function countryList() {
 
   document.addEventListener('DOMContentLoaded', retrieveData(resourses, true));
 
-  document.addEventListener('DOMContentLoaded', regionPopulation('https://restcountries.com/v3.1/all'));
 }
 
 async function retrieveData(resourses, state) {
   const mainContainer = document.querySelector('.main__container');
   mainContainer.innerHTML = '';
-  dataMap(resourses, state);
+  await dataMap(resourses, state);
+  function regionPopulation() {
+    const uniqueAndSortedRegions = [...new Set(regions)].sort();   
+    const selectRegion = document.querySelector('.select__region');
+    uniqueAndSortedRegions.map((region) => {
+      const option = document.createElement('option');
+      option.value = region;
+      option.innerHTML = `
+            ${region}
+            `;
+      selectRegion.appendChild(option);
+      return undefined;
+    });
+  
+}
+  regionPopulation();
 }
 async function dataMap(resourses, state) {
   const data = await findcountry(resourses);
+  data.map((items) => regions.push(items.region));
   const mainContainer = document.querySelector('.main__container');
   if (i < data.length) {
     data.slice(i, i + 18).map((item) => {
       const country = document.createElement('div');
       country.classList = 'country';
-      country.addEventListener('click', (e) => { countryDetails(e); });
+      country.addEventListener('click', (e) => { countryDetails(e, item.capital); });
       country.innerHTML = `
       <div class='contry__flag'>
         <img id='imgSrc'
@@ -154,9 +154,8 @@ async function reDataMap() {
   dataMap('https://restcountries.com/v3.1/all', true);
 }
 
-function countryDetails(e) {
+function countryDetails(e, capital) {
   e.preventDefault();
-  const capital = e.target.parentElement.parentElement.children[1].children[3].children[1].innerHTML;
   const mainContainer = document.querySelector('.main__container');
   mainContainer.remove();
   const searchContainer = document.querySelector('.search__container');

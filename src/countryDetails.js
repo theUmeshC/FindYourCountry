@@ -31,7 +31,7 @@ function retriveDataDetails(data) {
   countryDetail.innerHTML = `
   <div class='country__detailsImg'>
         <img src='${data[0].flags.svg}' alt=''>
-   </div>
+  </div>
   <div class='country__detailsDetails'>
     <div class='country__detailsLeftRight'>
       <div class='country__detailsLeft'>

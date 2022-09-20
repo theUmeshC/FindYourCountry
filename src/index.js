@@ -7,36 +7,36 @@ function loadHandling() {
   if (sessionStorage.getItem('countryList')) {
     countryList();
   } else if (Boolean(sessionStorage.getItem('capital'))) {
-    console.log(sessionStorage.getItem('countrycapital'));
     countryDetailsLoad(sessionStorage.getItem('capital'));
   } else {
     const root = document.getElementById('root');
-    root.innerHTML = `
-  <div class='login__container'>
-    <form class='login__form' id='formTag'>
-      <h2 id='login__title'>LOGIN</h2>
-        <input
-          type='email'
-          class='login__input form-control'
-          placeholder='Username'
-          id='login__userName'
-        />
-        <input
-          type='password'
-          class='login__input form-control'
-          placeholder='password'
-          id='login__password'
-        />
-        <small id='emailHelp' class='form-text'></small>
-        <input
-          type='submit'
-          class='login__input'
-          id='login__submitBtn'
-          value='Login'
-        />
-    </form>
-  </div>
-`;
+    root.innerHTML = 
+    `
+      <div class='login__container'>
+        <form class='login__form' id='formTag'>
+          <h2 id='login__title'>LOGIN</h2>
+            <input
+              type='email'
+              class='login__input form-control'
+              placeholder='Username'
+              id='login__userName'
+            />
+            <input
+              type='password'
+              class='login__input form-control'
+              placeholder='password'
+              id='login__password'
+            />
+            <small id='emailHelp' class='form-text'></small>
+            <input
+              type='submit'
+              class='login__input'
+              id='login__submitBtn'
+              value='Login'
+            />
+        </form>
+      </div>
+    `;
   }
 }
 loadHandling();
