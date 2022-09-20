@@ -1,19 +1,23 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/extensions */
-/* eslint-disable max-len */
 /* eslint-disable no-shadow */
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
+
 import retriveDataDetails from './countryDetails.js';
 
 let i = 0;
 const regions = [];
 
+/* Async Api fetch function */
 async function findcountry(resourses) {
   const result = await fetch(resourses);
   const data = await result.json();
   return data;
 }
+
+/* debounce function to maintain function call*/
 export const debounce = (fn, delay) => {
   let timeoutId;
   return (...args) => {
@@ -26,6 +30,7 @@ export const debounce = (fn, delay) => {
   };
 };
 
+/* countryList page rendering function */
 function countryList() {
   sessionStorage.setItem('countryList', true);
   const root = document.getElementById('root');
@@ -46,6 +51,10 @@ function countryList() {
             <option selected>Filter By Region</option>
           </select>
         </div>
+        <div class='search__country log__out '>
+          <button class='btn btn-primary log__outBTN' onclick='logOut()'>Logout</button>
+        </div>
+
       </div>
       <div class='main__container'></div>
   </div>
@@ -54,6 +63,7 @@ function countryList() {
   const byRegion = document.querySelector('#select__region');
   let resourses = 'https://restcountries.com/v3.1/all';
 
+  /* search function based on region */
   async function regionSearch(e) {
     e.preventDefault();
     if (e.target.value !== 'Filter By Region') {
@@ -66,6 +76,7 @@ function countryList() {
   }
   byRegion.addEventListener('change', regionSearch);
 
+  /* search function based on input data*/
   async function searchFunction(e) {
     e.preventDefault();
     if (e.target.value !== '') {
@@ -79,7 +90,7 @@ function countryList() {
   searchByCountry.addEventListener('input', debounce(searchFunction, 500));
   document.addEventListener('DOMContentLoaded', retrieveData(resourses, true));
 }
-
+/* function to fetch data whenever required and populating region only once on Domloaded */
 async function retrieveData(resourses, state) {
   const mainContainer = document.querySelector('.main__container');
   mainContainer.innerHTML = '';
@@ -99,6 +110,7 @@ async function retrieveData(resourses, state) {
   }
   regionPopulation();
 }
+/* to map data whenever called as in load more button is clicked */
 async function dataMap(resourses, state) {
   const data = await findcountry(resourses);
   data.map((items) => regions.push(items.region));
@@ -143,13 +155,14 @@ async function dataMap(resourses, state) {
     }
   }
 }
+/* to increment and call datamap on loadmore event */
 async function reDataMap() {
   i += 18;
   const btn = document.querySelector('.show__more');
   btn.remove();
   dataMap('https://restcountries.com/v3.1/all', true);
 }
-
+/* to call load countrydetails function and set sessionStorage to respective country*/
 function countryDetails(e, capital) {
   e.preventDefault();
   const mainContainer = document.querySelector('.main__container');
@@ -159,16 +172,14 @@ function countryDetails(e, capital) {
   countryDetailsLoad(capital);
   sessionStorage.setItem('capital', `${capital}`);
 }
+/* fetch perticular country and calls data mapping function*/
 export async function countryDetailsLoad(capital) {
   const resourses = `https://restcountries.com/v3.1/capital/${capital}`;
   const data = await findcountry(resourses);
   retriveDataDetails(data);
 }
+/* rendering list page function*/
 export function handleGoback() {
-  // const mainContainer = document.querySelector('.main__container');
-  // mainContainer.style = 'display:flex';
-  // const searchContainer = document.querySelector('.search__container');
-  // searchContainer.style = 'display:flex';
   countryList();
 }
 

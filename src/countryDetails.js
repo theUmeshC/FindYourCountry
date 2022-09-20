@@ -3,7 +3,7 @@
 /* eslint-disable import/extensions */
 
 import { handleGoback } from './countryList.js';
-
+/* function to handel back button and calling function which retrives list*/
 function goBack() {
   sessionStorage.setItem('countryList', true);
   sessionStorage.removeItem('countryList');
@@ -13,6 +13,7 @@ function goBack() {
   mainContainer2.innerHTML = '';
   handleGoback();
 }
+/* map countrydetails and render*/
 function retriveDataDetails(data) {
   const mainContainer2 = document.createElement('div');
   mainContainer2.classList = 'main__container2';

@@ -1,7 +1,11 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/extensions */
+/* eslint-disable import/no-duplicates */
+import _ from 'lodash';
 import { countryDetailsLoad } from './countryList.js';
 import countryList from './countryList.js';
+
+/* On referesh which data to be rendered*/
 
 function loadHandling() {
   if (sessionStorage.getItem('countryList')) {
@@ -10,7 +14,7 @@ function loadHandling() {
     countryDetailsLoad(sessionStorage.getItem('capital'));
   } else {
     const root = document.getElementById('root');
-    root.innerHTML = `
+    root.innerHTML = _.join(`
       <div class='login__container'>
         <form class='login__form' id='formTag'>
           <h2 id='login__title'>LOGIN</h2>
@@ -35,7 +39,7 @@ function loadHandling() {
             />
         </form>
       </div>
-    `;
+    `);
   }
 }
 loadHandling();
@@ -43,6 +47,8 @@ loadHandling();
 const userName = document.querySelector('#login__userName');
 const password = document.querySelector('#login__password');
 const form = document.querySelector('#formTag');
+
+/* On submission of the login page validation and directing to next page*/
 
 function formSubmit(e) {
   e.preventDefault();
