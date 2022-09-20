@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 /* eslint-disable no-shadow */
 /* eslint-disable import/no-cycle */
@@ -124,7 +124,9 @@ async function retrieveData(resourses, state) {
 /* to map data whenever called as in load more button is clicked */
 async function dataMap(resourses, state) {
   const data = await findcountry(resourses);
-  data.map((items) => regions.push(items.region));
+  if (regions == []) {
+    data.map((items) => regions.push(items.region));
+  }
   const mainContainer = document.querySelector('.main__container');
   if (i < data.length) {
     data.slice(i, i + 18).map((item) => {
