@@ -1,7 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/extensions */
-
 import { handleGoback } from './countryList.js';
 import Login from './index.js';
 
