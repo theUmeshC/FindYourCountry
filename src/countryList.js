@@ -48,7 +48,7 @@ function countryDetails(e, capital) {
 /* to map data whenever called as in load more button is clicked */
 async function dataMap(resourses, state) {
   const data = await findcountry(resourses)
-  if (regions !== []) {
+  if (regions !== regions.length > 0) {
     data.map(items => regions.push(items.region))
   }
   const mainContainer = document.querySelector('.main__container')
@@ -96,7 +96,7 @@ async function dataMap(resourses, state) {
     }
   }
 }
-/* function to fetch data whenever required and populating region only once on Domloaded */
+/* function to fetch data whenever required and populating region only once on DOM loaded */
 async function retrieveData(resourses, state) {
   const mainContainer = document.querySelector('.main__container')
   mainContainer.innerHTML = ''
@@ -104,6 +104,7 @@ async function retrieveData(resourses, state) {
   function regionPopulation() {
     const uniqueAndSortedRegions = [...new Set(regions)].sort()
     const selectRegion = document.querySelector('.select__region')
+
     selectRegion.innerHTML = ``
     const option1 = document.createElement('option')
     option1.innerHTML = `
@@ -120,7 +121,9 @@ async function retrieveData(resourses, state) {
       return undefined
     })
   }
-  regionPopulation()
+  if (state) {
+    regionPopulation();
+  }
 }
 /* countryList page rendering function */
 function countryList() {
@@ -147,7 +150,7 @@ function countryList() {
           <button class='btn btn-primary log__outBTN'>Logout</button>
           </div>
         </div>
-     </div>
+      </div>
       <div class='main__container'></div>
   </div>
   `

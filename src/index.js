@@ -1,5 +1,5 @@
 import countryList, { countryDetailsLoad } from './countryList.js';
-/* On referesh which data to be rendered */
+/* On refresh which data to be rendered */
 export default function Login() {
   function loadHandling() {
     if (sessionStorage.getItem('countryList')) {
@@ -18,13 +18,15 @@ export default function Login() {
                 placeholder='Username'
                 id='login__userName'
               />
+              <small id='emailHelp' class='form-text'></small>
               <input
                 type='password'
                 class='login__input form-control'
                 placeholder='password'
                 id='login__password'
               />
-              <small id='emailHelp' class='form-text'></small>
+              <small id='passwordHelp' class='form-text'></small>
+              <small id='emailpasswordHelp' class='form-text'></small>
               <input
                 type='submit'
                 class='login__input'
@@ -46,13 +48,34 @@ export default function Login() {
     const userNameValue = userName.value;
     const passwordValue = password.value;
     const regularExpression = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-    const errorMessage = document.querySelector('#emailHelp');
-    if (userNameValue === '' || passwordValue === '') {
-      errorMessage.style = 'visibility:visible;color:red';
-      errorMessage.innerHTML = 'Enter Email and password';
+    const errorMessage = document.querySelector('#emailpasswordHelp');
+    const errorMailMessage = document.querySelector('#emailHelp');
+    const errorPassMessage = document.querySelector('#passwordHelp');
+    if (userNameValue === '' && passwordValue === '') {
+      errorMailMessage.innerHTML='';
+      errorPassMessage.innerHTML='';
+      errorMessage.style = 'visibility:visible; color:red';
+      errorMessage.innerHTML = 'Enter Email and password !!';
       return;
     }
+    if(userNameValue === '' && passwordValue !== '') {
+      errorPassMessage.innerHTML='';
+      errorMessage.innerHTML='';
+      errorMailMessage.style = 'visibility:visible; color:red';
+      errorMailMessage.innerHTML = 'Enter Email !!';
+      return;
+    }
+    if(userNameValue !== '' && passwordValue === '') {
+      errorMessage.innerHTML='';
+      errorMailMessage.innerHTML='';
+      errorPassMessage.style = 'visibility:visible; color:red';
+      errorPassMessage.innerHTML = 'Enter password !!'
+      return;
+    }
+
     if (!regularExpression.test(passwordValue)) {
+      errorMailMessage.innerHTML='';
+      errorMailMessage.innerHTML='';
       errorMessage.style = 'visibility:visible;color:red';
       errorMessage.innerHTML = 'password is incorrect should contain one Capital one symbol one number and contain characters in the range of 6-16';
     } else {
