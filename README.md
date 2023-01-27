@@ -54,7 +54,7 @@ https://restcountries.com/v3.1/all
 ```
 ## 🔗 Link to Visit the App 
 
-[![Country](https://img.shields.io/badge/Country-000?style=for-the-badge&logo=ko-fi&logoColor=blue)](https://theumeshc.github.io/Project/)
+[![Country](https://img.shields.io/badge/Country-000?style=for-the-badge&logo=ko-fi&logoColor=blue)](https://theumeshc.github.io/FindYourCountry/)
 
 ## Below you can find the project sample images
 
@@ -63,3 +63,5 @@ https://restcountries.com/v3.1/all
 <img width="960" alt="Screenshot 2023-01-02 112959" src="https://user-images.githubusercontent.com/108338019/210199081-6c9b544d-c35d-4016-bab8-b9bc6ae5807e.png">
 
 <img width="960" alt="Screenshot 2023-01-02 113032" src="https://user-images.githubusercontent.com/108338019/210199097-04cfbb20-35a2-4814-9558-2f92bc8e56a8.png">
+
+https://user-images.githubusercontent.com/108338019/215082613-b1fe0c87-fe6f-4ff7-908b-235d4e406efa.mp4
